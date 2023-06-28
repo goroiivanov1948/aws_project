@@ -19,7 +19,7 @@ db_conn = connections.Connection(
 
 def generate_image_url(emp_id):
     
-    emp_image_filename = f"emp_{emp_id}.jpg"  # Adjust the filename format according to your image naming convention
+    emp_image_filename = f"emp-id-{emp_id}_image_file.png"  # Adjust the filename format according to your image naming convention
     image_url = f"https://{custombucket}.s3.{customregion}.amazonaws.com/{image_folder}/{emp_image_filename}"
     return image_url
 
