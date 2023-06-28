@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request
 from pymysql import connections
 import os
 import boto3
@@ -17,47 +17,20 @@ db_conn = connections.Connection(
     db=customdb
 )
 
-output = {}
-table = 'employee'
+def generate_image_url(emp_id):
+    
+    emp_image_filename = f"emp_{emp_id}.jpg"  # Adjust the filename format according to your image naming convention
+    image_url = f"https://{custombucket}.s3.{customregion}.amazonaws.com/{image_folder}/{emp_image_filename}"
+    return image_url
 
 
 @app.route("/", methods=['GET', 'POST'])
 def home():
-    return redirect(url_for('get_emp'))
-
-
-@app.route("/getemp", methods=['GET', 'POST'])
-def get_emp():
-    # Logic to retrieve employee information from the database
-    # Populate variables with employee data
-    id = request.form['id']
-    fname = request.form['fname']
-    lname = request.form['lname']
-    interest = request.form['interest']
-    location = request.form['location']
-    image_url = request.files['image_url']
-
-    return render_template('GetEmp.html', id=id, fname=fname, lname=lname, interest=interest, location=location, image_url=image_url)
-
-
-@app.route("/getempoutput", methods=['GET', 'POST'])
-def get_emp_output():
-    # Logic to retrieve employee information from the database
-    # Populate variables with employee data
-    id = request.form['id']
-    fname = request.form['fname']
-    lname = request.form['lname']
-    interest = request.form['interest']
-    location = request.form['location']
-    image_url = request.files['image_url']
-
-    return render_template('GetEmpOutput.html', id=id, fname=fname, lname=lname, interest=interest, location=location, image_url=image_url)
-
+    return render_template('AddEmp.html')
 
 @app.route("/about", methods=['POST'])
 def about():
     return render_template('www.intellipaat.com')
-
 
 @app.route("/addemp", methods=['POST'])
 def AddEmp():
@@ -77,37 +50,65 @@ def AddEmp():
     try:
         cursor.execute(insert_sql, (emp_id, first_name, last_name, pri_skill, location))
         db_conn.commit()
-        emp_name = "" + first_name + " " + last_name
+        emp_name = f"{first_name} {last_name}"
 
         # Upload image file to S3
-        emp_image_file_name_in_s3 = "emp-id-" + str(emp_id) + "_image_file"
+        emp_image_file_name_in_s3 = f"emp-id-{emp_id}_image_file"
         s3 = boto3.resource('s3')
 
         try:
             print("Data inserted in MySQL RDS... uploading image to S3...")
             s3.Bucket(custombucket).put_object(Key=emp_image_file_name_in_s3, Body=emp_image_file)
-            bucket_location = boto3.client('s3').get_bucket_location(Bucket=custombucket)
-            s3_location = (bucket_location['LocationConstraint'])
-
-            if s3_location is None:
-                s3_location = ''
-            else:
-                s3_location = '-' + s3_location
-
-            object_url = "https://s3{0}.amazonaws.com/{1}/{2}".format(
-                s3_location,
-                custombucket,
-                emp_image_file_name_in_s3)
-
         except Exception as e:
             return str(e)
 
+        # Generate the image URL
+        image_url = generate_image_url(emp_id)
+
+        print("All modifications done...")
+        return render_template('AddEmpOutput.html', name=emp_name, image_url=image_url)
     finally:
         cursor.close()
 
-    print("All modifications done...")
-    return render_template('AddEmpOutput.html', name=emp_name)
+@app.route("/getemp", methods=['GET', 'POST'])
+def get_emp():
+    emp_id = request.form.get('emp_id')  # Retrieve the employee ID from the form
+    # Query the database to retrieve employee information based on the emp_id
+    select_sql = "SELECT * FROM employee WHERE emp_id = %s"
+    cursor = db_conn.cursor()
+    cursor.execute(select_sql, (emp_id,))
+    employee = cursor.fetchone()
 
+    if employee:
+        id = employee[0]
+        fname = employee[1]
+        lname = employee[2]
+        interest = employee[3]
+        location = employee[4]
+        image_url = generate_image_url(id)  # Assuming you have a function to generate the image URL
+        return render_template('GetEmp.html', id=id, fname=fname, lname=lname, interest=interest, location=location, image_url=image_url)
+    else:
+        return "Employee not found"
+
+@app.route("/getempoutput", methods=['GET', 'POST'])
+def get_emp_output():
+    emp_id = request.form.get('emp_id')  # Retrieve the employee ID from the form
+    # Query the database to retrieve employee information based on the emp_id
+    select_sql = "SELECT * FROM employee WHERE emp_id = %s"
+    cursor = db_conn.cursor()
+    cursor.execute(select_sql, (emp_id,))
+    employee = cursor.fetchone()
+
+    if employee:
+        id = employee[0]
+        fname = employee[1]
+        lname = employee[2]
+        interest = employee[3]
+        location = employee[4]
+        image_url = generate_image_url(id)  # Assuming you have a function to generate the image URL
+        return render_template('GetEmpOutput.html', id=id, fname=fname, lname=lname, interest=interest, location=location, image_url=image_url)
+    else:
+        return "Employee not found"
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)
