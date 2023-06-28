@@ -109,7 +109,7 @@ def get_emp_output():
         last_name = employee[2]
         pri_skill = employee[3]
         location = employee[4]
-        image_url = generate_image_url(id)  # Assuming you have a function to generate the image URL
+        image_url = generate_image_url(emp_id)  # Assuming you have a function to generate the image URL
         return render_template('GetEmpOutput.html', emp_id=emp_id, first_name=first_name, last_name=last_name, pri_skill=pri_skill, location=location, image_url=image_url)
     else:
         return "Employee not found"
