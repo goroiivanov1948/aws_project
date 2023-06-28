@@ -110,6 +110,16 @@ def get_emp_output():
         pri_skill = employee[3]
         location = employee[4]
         image_url = generate_image_url(emp_id)  # Assuming you have a function to generate the image URL
+        
+        # Print the retrieved employee information
+        print("Employee Information:")
+        print("Employee ID:", emp_id)
+        print("First Name:", first_name)
+        print("Last Name:", last_name)
+        print("Primary Interest:", pri_skill)
+        print("Location:", location)
+        print("Image URL:", image_url)
+        
         return render_template('GetEmpOutput.html', emp_id=emp_id, first_name=first_name, last_name=last_name, pri_skill=pri_skill, location=location, image_url=image_url)
     else:
         return "Employee not found"
