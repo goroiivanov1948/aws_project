@@ -30,28 +30,28 @@ def home():
 def get_emp():
     # Logic to retrieve employee information from the database
     # Populate variables with employee data
-    emp_id = request.form['emp_id']
-    first_name = request.form['first_name']
-    last_name = request.form['last_name']
-    pri_skill = request.form['pri_skill']
+    id = request.form['emp_id']
+    fname = request.form['fname']
+    lname = request.form['lname']
+    interest = request.form['pri_skill']
     location = request.form['location']
-    emp_image_file = request.files['emp_image_file']
+    image_url = request.files['image_url']
 
-    return render_template('GetEmp.html', emp_id=emp_id, first_name=first_name, last_name=last_name, pri_skill=pri_skill, location=location, emp_image_file=emp_image_file)
+    return render_template('GetEmp.html', id=id, fname=fname, lname=lname, interest=interest, location=location, image_url=image_url)
 
 
 @app.route("/getempoutput", methods=['GET', 'POST'])
 def get_emp_output():
     # Logic to retrieve employee information from the database
     # Populate variables with employee data
-    emp_id = request.form['emp_id']
-    first_name = request.form['first_name']
-    last_name = request.form['last_name']
-    pri_skill = request.form['pri_skill']
+    id = request.form['emp_id']
+    fname = request.form['fname']
+    lname = request.form['lname']
+    interest = request.form['pri_skill']
     location = request.form['location']
-    emp_image_file = request.files['emp_image_file']
+    image_url = request.files['image_url']
 
-    return render_template('GetEmpOutput.html', emp_id=emp_id, first_name=first_name, last_name=last_name, pri_skill=pri_skill, location=location, emp_image_file=emp_image_file)
+    return render_template('GetEmpOutput.html', id=id, fname=fname, lname=lname, interest=interest, location=location, image_url=image_url)
 
 
 @app.route("/about", methods=['POST'])
