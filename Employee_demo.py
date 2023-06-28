@@ -74,19 +74,19 @@ def get_emp():
     if request.method == 'POST':
         emp_id = request.form.get('emp_id')  # Retrieve the employee ID from the form
         # Query the database to retrieve employee information based on the emp_id
-        select_sql = "SELECT * FROM employee WHERE emp_id = %s"
+        select_sql = "SELECT * FROM employee WHERE emp_id = %s"  # Adjust column name if necessary
         cursor = db_conn.cursor()
         cursor.execute(select_sql, (emp_id,))
         employee = cursor.fetchone()
 
         if employee:
-            id = employee[0]
-            fname = employee[1]
-            lname = employee[2]
-            interest = employee[3]
+            emp_id = employee[0]
+            first_name = employee[1]
+            last_name = employee[2]
+            pri_skill = employee[3]
             location = employee[4]
-            image_url = generate_image_url(id)  # Assuming you have a function to generate the image URL
-            return render_template('GetEmp.html', id=id, fname=fname, lname=lname, interest=interest, location=location, image_url=image_url)
+            image_url = generate_image_url(emp_id)  # Assuming you have a function to generate the image URL
+            return render_template('GetEmp.html', emp_id=emp_id, first_name=first_name, last_name=last_name, pri_skill=pri_skill, location=location, image_url=image_url)
         else:
             return "Employee not found"
 
