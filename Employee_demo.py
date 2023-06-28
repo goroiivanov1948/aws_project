@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
 from pymysql import connections
 import os
 import boto3
@@ -110,19 +110,21 @@ def get_emp_output():
         pri_skill = employee[3]
         location = employee[4]
         image_url = generate_image_url(emp_id)  # Assuming you have a function to generate the image URL
-        
-        # Print the retrieved employee information
-        print("Employee Information:")
-        print("Employee ID:", emp_id)
-        print("First Name:", first_name)
-        print("Last Name:", last_name)
-        print("Primary Interest:", pri_skill)
-        print("Location:", location)
-        print("Image URL:", image_url)
-        
-        return render_template('GetEmpOutput.html', emp_id=emp_id, first_name=first_name, last_name=last_name, pri_skill=pri_skill, location=location, image_url=image_url)
+
+        # Create a dictionary to store the employee information
+        employee_info = {
+            'emp_id': emp_id,
+            'first_name': first_name,
+            'last_name': last_name,
+            'pri_skill': pri_skill,
+            'location': location,
+            'image_url': image_url
+        }
+
+        # Return the employee information as JSON response
+        return jsonify(employee_info)
     else:
-        return "Employee not found"
+        return jsonify({'error': 'Employee not found'})
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)
