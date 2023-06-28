@@ -110,21 +110,10 @@ def get_emp_output():
         pri_skill = employee[3]
         location = employee[4]
         image_url = generate_image_url(emp_id)  # Assuming you have a function to generate the image URL
-
-        # Create a dictionary to store the employee information
-        employee_info = {
-            'emp_id': emp_id,
-            'first_name': first_name,
-            'last_name': last_name,
-            'pri_skill': pri_skill,
-            'location': location,
-            'image_url': image_url
-        }
-
-        # Return the employee information as JSON response
-        return jsonify(employee_info)
+        return render_template('EmployeeInfo.html', emp_id=emp_id, first_name=first_name, last_name=last_name, pri_skill=pri_skill, location=location, image_url=image_url)
     else:
-        return jsonify({'error': 'Employee not found'})
+        return render_template('EmployeeNotFound.html')
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)
