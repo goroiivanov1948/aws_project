@@ -30,10 +30,10 @@ def home():
 def get_emp():
     # Logic to retrieve employee information from the database
     # Populate variables with employee data
-    id = request.form['emp_id']
+    id = request.form['id']
     fname = request.form['fname']
     lname = request.form['lname']
-    interest = request.form['pri_skill']
+    interest = request.form['interest']
     location = request.form['location']
     image_url = request.files['image_url']
 
@@ -44,10 +44,10 @@ def get_emp():
 def get_emp_output():
     # Logic to retrieve employee information from the database
     # Populate variables with employee data
-    id = request.form['emp_id']
+    id = request.form['id']
     fname = request.form['fname']
     lname = request.form['lname']
-    interest = request.form['pri_skill']
+    interest = request.form['interest']
     location = request.form['location']
     image_url = request.files['image_url']
 
