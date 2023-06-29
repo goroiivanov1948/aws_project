@@ -47,6 +47,14 @@ def AddEmp():
         cursor.execute(select_sql, (customdb, "employee"))
         next_id = cursor.fetchone()[0]
         emp_id = next_id
+    else:
+        # Check if the emp_id already exists in the database
+        select_sql = "SELECT emp_id FROM employee WHERE emp_id = %s"
+        cursor = db_conn.cursor()
+        cursor.execute(select_sql, (emp_id,))
+        existing_emp_id = cursor.fetchone()
+        if existing_emp_id:
+            return "Employee ID already exists"
 
     insert_sql = "INSERT INTO employee (emp_id, first_name, last_name, pri_skill, location) VALUES (%s, %s, %s, %s, %s)"
     cursor = db_conn.cursor()
@@ -76,6 +84,7 @@ def AddEmp():
         return render_template('AddEmpOutput.html', name=emp_name, image_url=image_url)
     finally:
         cursor.close()
+
 
 
 @app.route("/getemp", methods=['GET', 'POST'])
