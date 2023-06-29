@@ -93,10 +93,6 @@ def get_emp():
         emp_id = request.form.get('emp_id')  # Retrieve the employee ID from the form
 
         if emp_id:
-            # Check if other fields are empty
-            if any(field != '' for field in [request.form.get('first_name'), request.form.get('last_name'), request.form.get('pri_skill'), request.form.get('location'), request.form.get('image_url')]):
-                return "Please enter only the Employee ID"
-
             # Query the database to retrieve employee information based on the emp_id
             select_sql = "SELECT * FROM employee WHERE emp_id = %s"  # Adjust column name if necessary
             cursor = db_conn.cursor()
@@ -113,14 +109,9 @@ def get_emp():
                 return render_template('GetEmp.html', emp_id=emp_id, first_name=first_name, last_name=last_name, pri_skill=pri_skill, location=location, image_url=image_url)
             else:
                 return "Employee not found"
-        else:
-            return "Employee ID is required"  # Return an error message if emp_id is not provided
 
     # Handle GET request (display the form)
-    return render_template('GetEmp.html', emp_id='', first_name='', last_name='', pri_skill='', location='', image_url='')
-
-
-
+    return render_template('GetEmp.html', emp_id='')
 
 
 @app.route("/getempoutput", methods=['GET', 'POST'])
