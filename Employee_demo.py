@@ -111,7 +111,8 @@ def get_emp():
                 return "Employee not found"
 
     # Handle GET request (display the form)
-    return render_template('GetEmp.html')
+    return render_template('GetEmp.html', emp_id='')
+
 
 
 
