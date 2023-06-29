@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request
 from pymysql import connections
 import os
 import boto3
@@ -40,7 +40,15 @@ def AddEmp():
     location = request.form['location']
     emp_image_file = request.files['emp_image_file']
 
-    insert_sql = "INSERT INTO employee VALUES (%s, %s, %s, %s, %s)"
+    if emp_id == "":
+        # If the provided emp_id is empty, retrieve the next auto-incremented ID from the database
+        select_sql = "SELECT AUTO_INCREMENT FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = %s AND TABLE_NAME = %s"
+        cursor = db_conn.cursor()
+        cursor.execute(select_sql, (customdb, "employee"))
+        next_id = cursor.fetchone()[0]
+        emp_id = next_id
+
+    insert_sql = "INSERT INTO employee (emp_id, first_name, last_name, pri_skill, location) VALUES (%s, %s, %s, %s, %s)"
     cursor = db_conn.cursor()
 
     if emp_image_file.filename == "":
@@ -68,6 +76,7 @@ def AddEmp():
         return render_template('AddEmpOutput.html', name=emp_name, image_url=image_url)
     finally:
         cursor.close()
+
 
 @app.route("/getemp", methods=['GET', 'POST'])
 def get_emp():
