@@ -93,6 +93,10 @@ def get_emp():
         emp_id = request.form.get('emp_id')  # Retrieve the employee ID from the form
 
         if emp_id:
+            # Check if other fields are empty
+            if any(field != '' for field in [request.form.get('first_name'), request.form.get('last_name'), request.form.get('pri_skill'), request.form.get('location'), request.form.get('image_url')]):
+                return "Please enter only the Employee ID"
+
             # Query the database to retrieve employee information based on the emp_id
             select_sql = "SELECT * FROM employee WHERE emp_id = %s"  # Adjust column name if necessary
             cursor = db_conn.cursor()
