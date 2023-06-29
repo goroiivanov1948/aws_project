@@ -18,7 +18,7 @@ db_conn = connections.Connection(
 )
 
 def generate_image_url(emp_id):
-    emp_image_filename = f"emp-id-{emp_id}_image_file.png"  # Adjust the filename format according to your image naming convention
+    emp_image_filename = f"emp-id-{emp_id}_image_file"  # Adjust the filename format according to your image naming convention
     image_url = f"https://{bucket}.s3.{region}.amazonaws.com/{emp_image_filename}"
     return image_url
 
@@ -52,7 +52,7 @@ def AddEmp():
         emp_name = f"{first_name} {last_name}"
 
         # Upload image file to S3
-        emp_image_file_name_in_s3 = f"emp-id-{emp_id}_image_file.png"
+        emp_image_file_name_in_s3 = f"emp-id-{emp_id}_image_file"
         s3 = boto3.resource('s3')
 
         try:
