@@ -89,7 +89,7 @@ def AddEmp():
 
 @app.route("/getemp", methods=['GET', 'POST'])
 def get_emp():
-    if request.method == 'POST':
+    if request.method == 'GET':
         emp_id = request.form.get('emp_id')  # Retrieve the employee ID from the form
 
         if emp_id:
