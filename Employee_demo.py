@@ -109,9 +109,12 @@ def get_emp():
                 return render_template('GetEmp.html', emp_id=emp_id, first_name=first_name, last_name=last_name, pri_skill=pri_skill, location=location, image_url=image_url)
             else:
                 return "Employee not found"
+        else:
+            return "Employee ID is required"  # Return an error message if emp_id is not provided
 
     # Handle GET request (display the form)
     return render_template('GetEmp.html', emp_id='')
+
 
 
 
