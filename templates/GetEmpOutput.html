@@ -1,39 +1,25 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Employee Information</title>
+    <title>Employee Information</title>
 </head>
 <center>
-	<font color="black" size="5" style="font-family: avenir">
-
-		<h1 style="color: DodgerBlue">Employee Information</h1>
-
-		<body bgcolor="lightgrey">
-
-			<form>
-
-				<div>
-
-			  		Employee ID:<br> {{ emp_id }} <br><br>
-
-			  		First Name:<br> {{ first_name }} <br><br>
-
-			  		Last Name:<br> {{ last_name }} <br><br>
-
-			  		Primary Interest:<br> {{ pri_skill }} <br><br>
-
-			  		Location:<br> {{ location }} <br><br>
-
-			  		Image URL: <br> {{ image_url }} <br><br>
-
-			  		<button type="submit" style="background: grey; height: 45px; width: 200px; color:white; font:oblique;" formaction="http://44.202.3.14:80/getemp">RESET</button><br><br>
-
-			  	</div>
-
-			</form>
-
-		</body>
-
-	</font>
+    <font color="black" size="5" style="font-family: avenir">
+        <h1 style="color: DodgerBlue">Employee Information</h1>
+        <body bgcolor="lightgrey">
+            <form>
+                <div>
+                    Employee ID:<br> {{ emp_id }} <br><br>
+                    First Name:<br> {{ first_name }} <br><br>
+                    Last Name:<br> {{ last_name }} <br><br>
+                    Primary Skill:<br> {{ pri_skill }} <br><br>
+                    Location:<br> {{ location }} <br><br>
+                    <img src="{{ image_url }}" alt="Employee Image"><br><br>
+                    Image URL: <br> {{ image_url }} <br><br>
+                    <button type="submit" style="background: grey; height: 45px; width: 200px; color: white; font: oblique;" formaction="http://44.202.3.14:80/getemp">RESET</button><br><br>
+                </div>
+            </form>
+        </body>
+    </font>
 </center>
 </html>
