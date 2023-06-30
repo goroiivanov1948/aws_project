@@ -157,5 +157,42 @@ def delete_emp(emp_id):
         return "Employee not found"
 
 
+@app.route("/updateemp/<int:emp_id>", methods=['GET', 'POST'])
+def update_emp(emp_id):
+    if request.method == 'POST':
+        # Retrieve the updated employee data from the form
+        first_name = request.form['first_name']
+        last_name = request.form['last_name']
+        pri_skill = request.form['pri_skill']
+        location = request.form['location']
+        
+        # Update the employee record in the database
+        update_sql = "UPDATE employee SET first_name = %s, last_name = %s, pri_skill = %s, location = %s WHERE emp_id = %s"
+        cursor = db_conn.cursor()
+        cursor.execute(update_sql, (first_name, last_name, pri_skill, location, emp_id))
+        db_conn.commit()
+        
+        # Redirect to the employee information page
+        return redirect(url_for('get_emp_output', emp_id=emp_id))
+    
+    # If it's a GET request, retrieve the existing employee data from the database
+    select_sql = "SELECT * FROM employee WHERE emp_id = %s"
+    cursor = db_conn.cursor()
+    cursor.execute(select_sql, (emp_id,))
+    employee = cursor.fetchone()
+    
+    if employee:
+        emp_id = employee[0]
+        first_name = employee[1]
+        last_name = employee[2]
+        pri_skill = employee[3]
+        location = employee[4]
+        image_url = generate_image_url(emp_id)  # Assuming you have a function to generate the image URL
+        
+        return render_template('UpdateEmp.html', emp_id=emp_id, first_name=first_name, last_name=last_name, pri_skill=pri_skill, location=location, image_url=image_url)
+    else:
+        return "Employee not found"
+
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)
