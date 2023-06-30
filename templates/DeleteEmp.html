@@ -56,11 +56,11 @@
 <body>
 	<h1>Delete Employee</h1>
 
-	<form action="/deleteemp" method="post">
-		<label for="emp_id">Employee ID:</label>
-		<input type="text" id="emp_id" name="emp_id" required>
-
-		<button type="submit">Delete</button>
+	<<form method="POST" action="{{ url_for('delete_emp', emp_id=emp_id) }}">
+   		<label for="emp_id">Employee ID:</label>
+    		<input type="text" id="emp_id" name="emp_id" value="{{ emp_id }}" readonly><br><br>
+    		<button type="submit">Delete</button>
 	</form>
+
 </body>
 </html>
