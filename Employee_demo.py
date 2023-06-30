@@ -141,7 +141,7 @@ def get_emp_output():
 # Route for displaying the deleteemp.html template
 @app.route("/deleteemp/<int:emp_id>", methods=['GET'])
 def delete_emp_form(emp_id):
-    return render_template('deleteemp.html', emp_id=emp_id)
+    return render_template('DeleteEmp.html', emp_id=emp_id)
 
 
 # Route for handling the deleteemp.html form submission
