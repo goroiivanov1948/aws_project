@@ -137,10 +137,6 @@ def get_emp_output():
     else:
         return render_template('EmployeeNotFound.html')
 
-# Route for displaying the deleteemp.html template
-@app.route("/deleteemp", methods=['GET'])
-def delete_emp_form():
-    return render_template('deleteemp.html')
 
 # Route for displaying the deleteemp.html template
 @app.route("/deleteemp/<int:emp_id>", methods=['GET'])
