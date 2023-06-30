@@ -211,27 +211,23 @@ def confirm_update_emp(emp_id):
         cursor.execute(update_sql, (first_name, last_name, pri_skill, location, emp_id))
         db_conn.commit()
 
-        # Redirect to the employee information page
-        return redirect(url_for('get_emp_output', emp_id=emp_id))
+        # Retrieve the updated employee information from the database
+        select_sql = "SELECT * FROM employee WHERE emp_id = %s"
+        cursor.execute(select_sql, (emp_id,))
+        employee = cursor.fetchone()
 
-    # If it's a GET request, retrieve the existing employee data from the database
-    select_sql = "SELECT * FROM employee WHERE emp_id = %s"
-    cursor = db_conn.cursor()
-    cursor.execute(select_sql, (emp_id,))
-    employee = cursor.fetchone()
+        if employee:
+            emp_id = employee[0]
+            first_name = employee[1]
+            last_name = employee[2]
+            pri_skill = employee[3]
+            location = employee[4]
+            image_url = generate_image_url(emp_id)  # Assuming you have a function to generate the image URL
 
-    if employee:
-        emp_id = employee[0]
-        first_name = employee[1]
-        last_name = employee[2]
-        pri_skill = employee[3]
-        location = employee[4]
-        image_url = generate_image_url(emp_id)  # Assuming you have a function to generate the image URL
+            return render_template('UpdateSuccess.html', emp_id=emp_id, first_name=first_name, last_name=last_name, pri_skill=pri_skill, location=location, image_url=image_url)
 
-        return render_template('ConfirmUpdateEmp.html', emp_id=emp_id, first_name=first_name, last_name=last_name, pri_skill=pri_skill, location=location, image_url=image_url)
-    else:
-        return "Employee not found"
-
+    # If it's a GET request, redirect back to the employee form
+    return redirect("http://44.202.3.14/")  # Update with the correct URL of the employee form
 
 
 if __name__ == '__main__':
