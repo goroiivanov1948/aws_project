@@ -49,7 +49,8 @@ def add_emp():
     existing_emp_id = cursor.fetchone()
 
     if existing_emp_id:
-        return "Employee ID already exists"
+        # Employee already exists, redirect to update page
+        return redirect(url_for('update_emp', emp_id=emp_id))
 
     insert_sql = "INSERT INTO employee (emp_id, first_name, last_name, pri_skill, location) VALUES (%s, %s, %s, %s, %s)"
     cursor = db_conn.cursor()
@@ -79,6 +80,7 @@ def add_emp():
             cursor.close()
     else:
         return "Please select a file"
+
 
 
 @app.route("/getemp", methods=['GET', 'POST'])
@@ -190,7 +192,7 @@ def update_emp(emp_id):
         location = employee[4]
         image_url = generate_image_url(emp_id)  # Assuming you have a function to generate the image URL
 
-        return render_template('ConfirmUpdateEmp.html', emp_id=emp_id, first_name=first_name, last_name=last_name, pri_skill=pri_skill, location=location, image_url=image_url)
+        return render_template('UpdateEmp.html', emp_id=emp_id, first_name=first_name, last_name=last_name, pri_skill=pri_skill, location=location, image_url=image_url)
     else:
         return "Employee not found"
 
