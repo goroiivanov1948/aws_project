@@ -1,28 +1,43 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Confirm Update Employee Information</title>
+    <title>Confirm Update Employee</title>
 </head>
 <center>
-	<font color="black" size="4" style="font-family: avenir">
-		<h1 style="color: DodgerBlue">Employee Database</h1>
+    <font color="black" size="5" style="font-family: avenir">
 
-		<body bgcolor="lightgrey">
-			<form action="/confirmupdateemp/{{ emp_id }}" method="POST">
-				<p><b>Confirm Update Employee Information:</b></p>
-				<p>
-					Employee ID: {{ emp_id }}<br>
-					First Name: <input type="text" name="first_name" value="{{ first_name }}"><br>
-					Last Name: <input type="text" name="last_name" value="{{ last_name }}"><br>
-					Primary Skills: <input type="text" name="pri_skill" value="{{ pri_skill }}"><br>
-					Location: <input type="text" name="location" value="{{ location }}"><br>
-				</p>
-				<p>
-					<button type="submit" style="background: grey; height: 45px; width: 200px; color: white; font:oblique;">Confirm Update</button>
-					<a href="/getempoutput"><button type="button" style="background: grey; height: 45px; width: 200px; color: white; font:oblique;">Cancel</button></a>
-				</p>
-			</form>
-		</body>
-	</font>
+        <h1 style="color: DodgerBlue">Confirm Update Employee</h1>
+
+        <body bgcolor="lightgrey">
+
+            <form method="POST" action="{{ url_for('confirm_update_emp', emp_id=emp_id) }}">
+                <div>
+                    Employee ID:<br>
+                    <input type="text" name="emp_id" value="{{ emp_id }}" readonly><br><br>
+
+                    First Name:<br>
+                    <input type="text" name="first_name" value="{{ first_name }}"><br><br>
+
+                    Last Name:<br>
+                    <input type="text" name="last_name" value="{{ last_name }}"><br><br>
+
+                    Primary Interest:<br>
+                    <input type="text" name="pri_skill" value="{{ pri_skill }}"><br><br>
+
+                    Location:<br>
+                    <input type="text" name="location" value="{{ location }}"><br><br>
+
+                    <button type="submit" style="background: grey; height: 45px; width: 200px; color:white; font:oblique;">Confirm</button>
+                </div>
+            </form>
+
+            <br>
+
+            <form>
+                <button type="submit" style="background: grey; height: 45px; width: 200px; color:white; font:oblique;" onclick="window.location.href='{{ url_for('get_emp_output', emp_id=emp_id) }}'">Cancel</button>
+            </form>
+
+        </body>
+    </font>
 </center>
 </html>
