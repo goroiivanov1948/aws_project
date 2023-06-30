@@ -198,6 +198,8 @@ def update_emp(emp_id):
 
 @app.route("/confirmupdateemp/<int:emp_id>", methods=['GET', 'POST'])
 def confirm_update_emp(emp_id):
+    cursor = db_conn.cursor()
+    
     if request.method == 'POST':
         # Retrieve the confirmed employee data from the form
         first_name = request.form['first_name']
@@ -207,7 +209,6 @@ def confirm_update_emp(emp_id):
 
         # Update the employee record in the database
         update_sql = "UPDATE employee SET first_name = %s, last_name = %s, pri_skill = %s, location = %s WHERE emp_id = %s"
-        cursor = db_conn.cursor()
         cursor.execute(update_sql, (first_name, last_name, pri_skill, location, emp_id))
         db_conn.commit()
 
