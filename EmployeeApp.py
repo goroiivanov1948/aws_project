@@ -49,8 +49,8 @@ def add_emp():
     existing_emp_id = cursor.fetchone()
 
     if existing_emp_id:
-        # Employee already exists, redirect to update page
-        return redirect(url_for('update_emp', emp_id=emp_id))
+        # Employee already exists, return an error message
+        return "Employee with the same ID already exists"
 
     insert_sql = "INSERT INTO employee (emp_id, first_name, last_name, pri_skill, location) VALUES (%s, %s, %s, %s, %s)"
     cursor = db_conn.cursor()
@@ -80,7 +80,6 @@ def add_emp():
             cursor.close()
     else:
         return "Please select a file"
-
 
 
 @app.route("/getemp", methods=['GET', 'POST'])
