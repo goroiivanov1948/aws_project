@@ -142,28 +142,30 @@ def get_emp_output():
 def delete_emp_form():
     return render_template('deleteemp.html')
 
+# Route for displaying the deleteemp.html template
+@app.route("/deleteemp/<int:emp_id>", methods=['GET'])
+def delete_emp_form(emp_id):
+    return render_template('deleteemp.html', emp_id=emp_id)
+
+
 # Route for handling the deleteemp.html form submission
-@app.route("/deleteemp", methods=['POST'])
-def delete_emp():
-    emp_id = request.form.get('emp_id')  # Retrieve the employee ID from the form
+@app.route("/deleteemp/<int:emp_id>", methods=['POST'])
+def delete_emp(emp_id):
+    # Check if the employee exists in the database
+    select_sql = "SELECT emp_id FROM employee WHERE emp_id = %s"
+    cursor = db_conn.cursor()
+    cursor.execute(select_sql, (emp_id,))
+    existing_emp_id = cursor.fetchone()
 
-    if emp_id:
-        # Check if the employee exists in the database
-        select_sql = "SELECT emp_id FROM employee WHERE emp_id = %s"
-        cursor = db_conn.cursor()
-        cursor.execute(select_sql, (emp_id,))
-        existing_emp_id = cursor.fetchone()
-
-        if existing_emp_id:
-            # Delete the employee record from the database
-            delete_sql = "DELETE FROM employee WHERE emp_id = %s"
-            cursor.execute(delete_sql, (emp_id,))
-            db_conn.commit()
-            return "Employee deleted successfully"
-        else:
-            return "Employee not found"
+    if existing_emp_id:
+        # Delete the employee record from the database
+        delete_sql = "DELETE FROM employee WHERE emp_id = %s"
+        cursor.execute(delete_sql, (emp_id,))
+        db_conn.commit()
+        return "Employee deleted successfully"
     else:
-        return "Employee ID is required"
+        return "Employee not found"
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)
