@@ -1,37 +1,26 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Confirm Update Employee</title>
+	<title>Confirm Update Employee Information</title>
 </head>
 <center>
 	<font color="black" size="4" style="font-family: avenir">
-
-		<h1 style="color: DodgerBlue">Confirm Update Employee</h1>
+		<h1 style="color: DodgerBlue">Employee Database</h1>
 
 		<body bgcolor="lightgrey">
-
 			<form action="/confirmupdateemp/{{ emp_id }}" method="POST">
-				{% if error %}
-					<p class="error">{{ error }}</p>
-				{% endif %}
-
-				Employee ID:<br>
-				<input style="height: 25px; font-size: 14pt; color: grey;" type="number" name="emp_id" value="{{ emp_id }}" readonly><br><br>
-
-				First Name:<br>
-				<input style="height: 25px; font-size: 14pt; color: grey;" type="text" name="first_name" value="{{ first_name }}" required><br><br>
-
-				Last Name:<br>
-				<input style="height: 25px; font-size: 14pt; color: grey;" type="text" name="last_name" value="{{ last_name }}" required><br><br>
-
-				Primary Skills:<br>
-				<input style="height: 25px; font-size: 14pt; color: grey;" type="text" name="pri_skill" value="{{ pri_skill }}" required><br><br>
-
-				Location:<br>
-				<input style="height: 25px; font-size: 14pt; color: grey;" type="text" name="location" value="{{ location }}" required><br><br>
-
-				<input type="submit" value="Confirm Update">
-				<input type="button" value="Cancel" onclick="location.href='/getempoutput/{{ emp_id }}'">
+				<p><b>Confirm Update Employee Information:</b></p>
+				<p>
+					Employee ID: {{ emp_id }}<br>
+					First Name: <input type="text" name="first_name" value="{{ first_name }}"><br>
+					Last Name: <input type="text" name="last_name" value="{{ last_name }}"><br>
+					Primary Skills: <input type="text" name="pri_skill" value="{{ pri_skill }}"><br>
+					Location: <input type="text" name="location" value="{{ location }}"><br>
+				</p>
+				<p>
+					<button type="submit" style="background: grey; height: 45px; width: 200px; color: white; font:oblique;">Confirm Update</button>
+					<a href="/getempoutput"><button type="button" style="background: grey; height: 45px; width: 200px; color: white; font:oblique;">Cancel</button></a>
+				</p>
 			</form>
 		</body>
 	</font>
