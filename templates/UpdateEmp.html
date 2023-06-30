@@ -20,5 +20,18 @@
         
         <input type="submit" value="Update Employee">
     </form>
+
+    {% if success_message %}
+        <p>{{ success_message }}</p>
+        <p>Updated Information:</p>
+        <p>First Name: {{ first_name }}</p>
+        <p>Last Name: {{ last_name }}</p>
+        <p>Primary Skill: {{ pri_skill }}</p>
+        <p>Location: {{ location }}</p>
+    {% endif %}
+
+    {% if error_message %}
+        <p>{{ error_message }}</p>
+    {% endif %}
 </body>
 </html>
