@@ -34,9 +34,13 @@
                 <button type="submit" style="background: grey; height: 45px; width: 200px; color:white; font:oblique;">Delete</button>
             </form>
 
-            {% if success_message %}
-                <p>{{ success_message }}</p>
-            {% endif %}
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for message in messages %}
+                        <p>{{ message }}</p>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
         </body>
     </font>
 </center>
