@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for
 from pymysql import connections
 import os
 import boto3
@@ -16,6 +16,7 @@ db_conn = connections.Connection(
     password=custompass,
     db=customdb
 )
+
 
 def generate_image_url(emp_id):
     emp_image_filename = f"emp-id-{emp_id}_image_file"  # Adjust the filename format according to your image naming convention
@@ -165,6 +166,15 @@ def update_emp(emp_id):
         last_name = request.form['last_name']
         pri_skill = request.form['pri_skill']
         location = request.form['location']
+        
+        # Check if the emp_id already exists in the database
+        select_sql = "SELECT emp_id FROM employee WHERE emp_id = %s"
+        cursor = db_conn.cursor()
+        cursor.execute(select_sql, (emp_id,))
+        existing_emp_id = cursor.fetchone()
+        
+        if existing_emp_id:
+            return "Employee ID already exists"
         
         # Update the employee record in the database
         update_sql = "UPDATE employee SET first_name = %s, last_name = %s, pri_skill = %s, location = %s WHERE emp_id = %s"
