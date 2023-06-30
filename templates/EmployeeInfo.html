@@ -2,14 +2,75 @@
 <html>
 <head>
     <title>Employee Information</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: lightgrey;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            color: DodgerBlue;
+            text-align: center;
+            margin-top: 0;
+        }
+
+        .employee-info {
+            width: 400px;
+            margin: 0 auto;
+            background-color: #fff;
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .employee-info p {
+            margin-bottom: 10px;
+        }
+
+        .employee-info img {
+            display: block;
+            max-width: 100%;
+            margin-top: 20px;
+        }
+
+        .update-btn {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .update-btn a {
+            background-color: grey;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            text-decoration: none;
+        }
+
+        .update-btn a:hover {
+            background-color: darkgrey;
+        }
+    </style>
 </head>
 <body>
     <h1>Employee Information</h1>
-    <p>Employee ID: {{ emp_id }}</p>
-    <p>First Name: {{ first_name }}</p>
-    <p>Last Name: {{ last_name }}</p>
-    <p>Primary Skill: {{ pri_skill }}</p>
-    <p>Location: {{ location }}</p>
-    <img src="{{ image_url }}" alt="Employee Image">
+
+    <div class="employee-info">
+        <p>Employee ID: {{ emp_id }}</p>
+        <p>First Name: {{ first_name }}</p>
+        <p>Last Name: {{ last_name }}</p>
+        <p>Primary Skill: {{ pri_skill }}</p>
+        <p>Location: {{ location }}</p>
+
+        <img src="{{ image_url }}" alt="Employee Image">
+
+        <!-- Add a link/button to update the employee information -->
+        <div class="update-btn">
+            <a href="{{ url_for('update_emp', emp_id=emp_id) }}">Update Employee</a>
+        </div>
+    </div>
 </body>
 </html>
