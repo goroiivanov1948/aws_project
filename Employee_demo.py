@@ -147,6 +147,9 @@ def delete_emp_form(emp_id):
 # Route for handling the deleteemp.html form submission
 @app.route("/deleteemp/<int:emp_id>", methods=['POST'])
 def delete_emp(emp_id):
+    if not emp_id:
+        return "Invalid employee ID"
+
     # Check if the employee exists in the database
     select_sql = "SELECT emp_id FROM employee WHERE emp_id = %s"
     cursor = db_conn.cursor()
@@ -161,6 +164,7 @@ def delete_emp(emp_id):
         return "Employee deleted successfully"
     else:
         return "Employee not found"
+
 
 
 if __name__ == '__main__':
