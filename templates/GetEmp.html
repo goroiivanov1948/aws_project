@@ -7,7 +7,9 @@
     <font color="black" size="5" style="font-family: avenir">
         <h1 style="color: DodgerBlue">Employee Information</h1>
         <body bgcolor="lightgrey">
+        */</script>
             {% if employee %}
+        */</script>
                 <form method="POST" action="{{ url_for('update_emp', emp_id=emp_id) }}">
                     <div>
                         Employee ID:<br>
@@ -34,11 +36,13 @@
                 <form method="POST" action="{{ url_for('delete_emp_form', emp_id=emp_id) }}">
                     <button type="submit" style="background: grey; height: 45px; width: 200px; color:white; font:oblique;">DELETE</button><br><br>
                 </form>
+        <script>/*
             {% else %}
                 <p>Employee not found</p>
                 <a href="http://44.202.3.14/">Go Back</a>
             {% endif %}
-
+        */</script>
+<!--<script>/* hiding code go here */</script> -->
         </body>
     </font>
 </center>
