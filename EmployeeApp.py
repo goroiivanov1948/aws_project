@@ -18,17 +18,14 @@ db_conn = connections.Connection(
     db=customdb
 )
 
-
 def generate_image_url(emp_id):
     emp_image_filename = f"emp-id-{emp_id}_image_file"  # Adjust the filename format according to your image naming convention
     image_url = f"https://{bucket}.s3.{region}.amazonaws.com/{emp_image_filename}"
     return image_url
 
-
 @app.route("/", methods=['GET', 'POST'])
 def home():
     return render_template('AddEmp.html')
-
 
 @app.route("/addemp", methods=['POST'])
 def add_emp():
@@ -82,7 +79,6 @@ def add_emp():
     else:
         return "Please select a file"
 
-
 @app.route("/getemp", methods=['GET', 'POST'])
 def get_emp():
     if request.method == 'POST':
@@ -109,7 +105,6 @@ def get_emp():
     # Handle GET request (display the form)
     return render_template('GetEmp.html', emp_id='')
 
-
 @app.route("/getempoutput", methods=['GET', 'POST'])
 def get_emp_output():
     emp_id = request.form.get('emp_id')  # Retrieve the employee ID from the form
@@ -133,11 +128,9 @@ def get_emp_output():
     else:
         return render_template('EmployeeNotFound.html')
 
-
 @app.route("/deleteemp/<int:emp_id>", methods=['GET'])
 def delete_emp_form(emp_id):
     return render_template('DeleteEmp.html', emp_id=emp_id)
-
 
 @app.route("/deleteemp/<int:emp_id>", methods=['POST'])
 def delete_emp(emp_id):
@@ -158,7 +151,6 @@ def delete_emp(emp_id):
         return "Employee deleted successfully"
     else:
         return "Employee not found"
-
 
 @app.route("/updateemp/<int:emp_id>", methods=['GET', 'POST'])
 def update_emp(emp_id):
@@ -196,7 +188,6 @@ def update_emp(emp_id):
     else:
         return "Employee not found"
 
-
 @app.route("/confirmupdateemp/<int:emp_id>", methods=['GET', 'POST'])
 def confirm_update_emp(emp_id):
     cursor = db_conn.cursor()
@@ -216,12 +207,10 @@ def confirm_update_emp(emp_id):
         # Flash a success message
         flash('Employee information has been updated!', 'success')
 
+        # Redirect back to the employee form
         return redirect("http://44.202.3.14/")
 
     return render_template('ConfirmUpdateEmp.html')
-    
-    # Redirect back to the employee form
-    # return redirect("http://44.202.3.14/")  # Update with the correct URL of the employee form
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)
