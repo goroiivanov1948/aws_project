@@ -216,26 +216,12 @@ def confirm_update_emp(emp_id):
         # Flash a success message
         flash('Employee information successfully updated', 'success')
 
-        # Query the database to retrieve the updated employee information
-        select_sql = "SELECT * FROM employee WHERE emp_id = %s"
-        cursor.execute(select_sql, (emp_id,))
-        employee = cursor.fetchone()
+     return redirect("http://44.202.3.14/")
 
-        if employee:
-            emp_id = employee[0]
-            first_name = employee[1]
-            last_name = employee[2]
-            pri_skill = employee[3]
-            location = employee[4]
-            image_url = generate_image_url(emp_id)  # Assuming you have a function to generate the image URL
-
-            # Pass the updated employee information to the template
-            return render_template('ConfirmUpdateEmp.html', emp_id=emp_id, first_name=first_name, last_name=last_name, pri_skill=pri_skill, location=location, image_url=image_url)
-
-    flash('Employee not found', 'error')
+    return render_template('ConfirmUpdateEmp.html')
     
     # Redirect back to the employee form
-    return redirect("http://44.202.3.14/")  # Update with the correct URL of the employee form
+    # return redirect("http://44.202.3.14/")  # Update with the correct URL of the employee form
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)
