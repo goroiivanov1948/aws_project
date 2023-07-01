@@ -149,7 +149,8 @@ def delete_emp(emp_id):
         delete_sql = "DELETE FROM employee WHERE emp_id = %s"
         cursor.execute(delete_sql, (emp_id,))
         db_conn.commit()
-        return "Employee deleted successfully"
+        # return "Employee deleted successfully"
+        return render_template ('DeleteSuccess.html')
     else:
         return "Employee not found"
 
