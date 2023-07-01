@@ -216,7 +216,7 @@ def confirm_update_emp(emp_id):
         # Flash a success message
         flash('Employee information has been updated!', 'success')
 
-        return redirect(url_for('employee_form'))
+        return redirect("http://44.202.3.14/")
 
     return render_template('ConfirmUpdateEmp.html')
     
