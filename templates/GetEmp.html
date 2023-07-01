@@ -10,22 +10,22 @@
             <form method="POST" action="{{ url_for('update_emp', emp_id=emp_id) }}">
                 <div>
                     Employee ID:<br>
-                    <input type="text" id="emp_id" name="emp_id" value="{{ emp_id }}" readonly><br><br>
+                    <input style="height:25px;font-size:14pt;color:grey;" type="text" id="emp_id" name="emp_id" value="{{ emp_id }}" readonly><br><br>
 
                     First Name:<br>
                     <input style="height:25px;font-size:14pt;color:grey;" type="text" id="first_name" name="first_name" value="{{ first_name }}"><br><br>
 
                     Last Name:<br>
-                    <input type="text" id="last_name" name="last_name" value="{{ last_name }}"><br><br>
+                    <input style="height:25px;font-size:14pt;color:grey;" type="text" id="last_name" name="last_name" value="{{ last_name }}"><br><br>
 
                     Primary Interest:<br>
-                    <input type="text" id="pri_skill" name="pri_skill" value="{{ pri_skill }}"><br><br>
+                    <input style="height:25px;font-size:14pt;color:grey;" type="text" id="pri_skill" name="pri_skill" value="{{ pri_skill }}"><br><br>
 
                     Location:<br>
-                    <input type="text" id="location" name="location" value="{{ location }}"><br><br>
+                    <input style="height:25px;font-size:14pt;color:grey;" type="text" id="location" name="location" value="{{ location }}"><br><br>
 
                     Image URL:<br>
-                    <input type="text" id="image_url" name="image_url" value="{{ image_url }}"><br><br>
+                    <input style="height:25px;font-size:14pt;color:grey;" type="text" id="image_url" name="image_url" value="{{ image_url }}"><br><br>
 
                     <button type="submit" style="background: grey; height: 45px; width: 200px; color:white; font:oblique;">UPDATE</button><br><br>
                 </div>
