@@ -100,7 +100,7 @@ def get_emp():
                 image_url = generate_image_url(emp_id)  # Assuming you have a function to generate the image URL
                 return render_template('GetEmp.html', emp_id=emp_id, first_name=first_name, last_name=last_name, pri_skill=pri_skill, location=location, image_url=image_url)
             else:
-                return render_template('EmployeeNotFound.html')
+                return "Employee Not Found"
 
     # Handle GET request (display the form)
     return render_template('GetEmp.html', emp_id='')
