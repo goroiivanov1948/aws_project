@@ -214,9 +214,9 @@ def confirm_update_emp(emp_id):
         db_conn.commit()
 
         # Flash a success message
-        flash('Employee information successfully updated', 'success')
+        flash('Employee information has been updated!', 'success')
 
-     return redirect("http://44.202.3.14/")
+        return redirect(url_for('employee_form'))
 
     return render_template('ConfirmUpdateEmp.html')
     
